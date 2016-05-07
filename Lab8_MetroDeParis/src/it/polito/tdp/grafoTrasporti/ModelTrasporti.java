@@ -18,18 +18,23 @@ public class ModelTrasporti {
 		ModelTrasportiDAO m= new ModelTrasportiDAO();
 		List<Fermata> fermate= m.fermate();
 		List<Linea>linee= m.linee();
+		//List<int[]>connessioni=m.connessioni();
 		Graphs.addAllVertices(this.grafo, fermate);
 		for(Linea linea:linee){
 			for(Fermata fermata: fermate){
 				for(int i=0;i<fermate.size();i++){
-						if(m.collegate(fermata, fermate.get(i), linea)){
-							grafo.addEdge(fermata, fermate.get(i));
-							grafo.setEdgeWeight(grafo.getEdge(fermata, fermate.get(i)),peso(linea,fermata,fermate.get(i)));
-						}
+						if(m.collegate(fermata, fermate.get(i), linea))
+						//for(int j=0;j<connessioni.size();j++){
+							//if(connessioni.get(j)[0]==fermata.getId()&&connessioni.get(j)[1]==fermate.get(i).getId()&&connessioni.get(j)[2]==linea.getId())
+							{
+								grafo.addEdge(fermata, fermate.get(i));
+								grafo.setEdgeWeight(grafo.getEdge(fermata, fermate.get(i)),peso(linea,fermata,fermate.get(i)));
+							}
+						//}
 				}
 			}
 		}
-
+		m.chiudi();
 	}
 
 	private double peso(Linea linea, Fermata fermata, Fermata fermata2) {

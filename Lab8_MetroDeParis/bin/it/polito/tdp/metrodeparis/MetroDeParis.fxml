@@ -15,11 +15,11 @@
       <VBox BorderPane.alignment="CENTER">
          <children>
             <Label text="Stazione di partenza" />
-            <ComboBox prefWidth="150.0" />
+            <ComboBox fx:id="Partenza" prefWidth="150.0" />
             <Label text="Stazione di arrivo" />
             <HBox>
                <children>
-                  <ComboBox prefWidth="150.0" />
+                  <ComboBox fx:id="Arrivo" prefWidth="150.0" />
                   <Button fx:id="Calcola" mnemonicParsing="false" onAction="#CalcolaPercorso" text="Calcola percorso">
                      <HBox.margin>
                         <Insets left="50.0" />

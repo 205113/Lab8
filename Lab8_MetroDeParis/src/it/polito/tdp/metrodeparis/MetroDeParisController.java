@@ -44,7 +44,9 @@ public class MetroDeParisController {
     		model.generaMetro();
     		generato=true;
     	}
-    	List<Fermata>fermate=model.percorso(Partenza.getValue(),Arrivo.getValue());
+    	Fermata f1=new Fermata(8,"Alesia",2.3624,8.8285);
+    	Fermata f2=new Fermata(31,"Balard",2.2785,48.83685);
+    	List<Fermata>fermate=model.percorso(f1,f2);//(Partenza.getValue(),Arrivo.getValue());
     	Visualizza(fermate);
     }
     private void Visualizza(List<Fermata> elementi){

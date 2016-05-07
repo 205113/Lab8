@@ -8,6 +8,14 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class ModelTrasportiDAO {
+	//private Connessione c;
+	
+	
+	
+	/*public ModelTrasportiDAO() {
+		//c= new Connessione("jdbc:postgresql://localhost/metroparis");
+	}*/
+
 	public List<Fermata> fermate() {
 		// Restituisce tutte le fermate
 		List<Fermata> fermate= new ArrayList<Fermata>();
@@ -39,7 +47,7 @@ public class ModelTrasportiDAO {
 		// Restituisce tutte le linee
 		List<Linea> linee= new ArrayList<Linea>();
 		Connessione c= new Connessione("jdbc:mysql://localhost/metroparis?user=root");
-		Connection conn= c.connetti();
+		Connection conn=c.connetti();
 		String sql="";
 		try {
 				sql="SELECT * FROM linea";
@@ -52,6 +60,7 @@ public class ModelTrasportiDAO {
 				
 			conn.close();
 			rs.close();
+			//c.chiudi();
 			return linee;
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
@@ -61,6 +70,35 @@ public class ModelTrasportiDAO {
 	return null;
 		}
 	
+	public List<int[]> connessioni() {
+		// Restituisce tutte le connessioni
+		List<int[]> connessioni= new ArrayList<int[]>();
+		Connessione c= new Connessione("jdbc:mysql://localhost/metroparis?user=root");
+		Connection conn= c.connetti();
+		String sql="";
+		try {
+				sql="SELECT * FROM connessione";
+				PreparedStatement s= conn.prepareStatement(sql);
+				ResultSet rs= s.executeQuery();
+				while(rs.next()){
+					int[] connessione=new int[3];
+					connessione[0]=rs.getInt("id_stazP");
+					connessione[1]=rs.getInt("id_stazA");
+					connessione[2]=rs.getInt("id_linea");
+					connessioni.add(connessione);
+				}
+				
+			conn.close();
+			rs.close();
+			//c.chiudi();
+			return connessioni;
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+	return null;
+		}
 	public boolean collegate(Fermata f1,Fermata f2,Linea l) {
 		// Controlla se f1 e f2 collegate da qualche linea
 		Connessione c= new Connessione("jdbc:mysql://localhost/metroparis?user=root");
@@ -87,4 +125,9 @@ public class ModelTrasportiDAO {
 		}
 		return collegate;
 		}
+
+	public void chiudi() {
+		//this.c.chiudi();
+		
+	}
 }
